@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'widgets/shoppinglistappbar.dart';
 import 'screens/archive.dart';
 import 'screens/shoppinglist.dart';
 
@@ -13,7 +12,16 @@ class MyApp extends StatelessWidget {
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
-          appBar: ShoppingListAppBar(),
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.list)),
+                Tab(icon: Icon(Icons.history)),
+              ],
+            ),
+            title: Text("Shopping list"),
+            backgroundColor: Colors.pink,
+          ),
           body: TabBarView(
             children: [
               ShoppingList(),
