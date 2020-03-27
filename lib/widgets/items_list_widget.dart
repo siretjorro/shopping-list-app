@@ -3,19 +3,19 @@ import 'package:shopping_list_app/model/list_item.dart';
 import 'package:shopping_list_app/provider/api_provider.dart';
 import 'package:shopping_list_app/widgets/list_item_widget.dart';
 
-class ItemsList extends StatefulWidget {
+class ItemsListWidget extends StatefulWidget {
   @override
-  _ItemsListState createState() => _ItemsListState();
+  _ItemsListWidgetState createState() => _ItemsListWidgetState();
 }
 
-class _ItemsListState extends State<ItemsList> {
+class _ItemsListWidgetState extends State<ItemsListWidget> {
   Future<List<ListItem>> _listItems;
   ApiProvider _apiProvider = ApiProvider();
 
   @override
   void initState() {
     super.initState();
-    this._listItems = _apiProvider.getListItems();
+    this._listItems = _getListItems();
   }
 
   @override
@@ -52,7 +52,11 @@ class _ItemsListState extends State<ItemsList> {
 
   Future<void> _handleRefresh() async {
     setState(() {
-      this._listItems = _apiProvider.getListItems();
+      this._listItems = _getListItems();
     });
+  }
+
+  Future<List<ListItem>> _getListItems() {
+    return _apiProvider.getListItems();
   }
 }
