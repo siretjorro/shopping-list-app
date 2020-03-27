@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list_app/screens/shopping_list.dart';
 import 'screens/archive.dart';
+import 'package:shopping_list_app/res/strings.dart' as Strings;
 
 void main() => runApp(MyApp());
 
@@ -8,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Shopping list",
+      title: Strings.APP_NAME,
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
                 Tab(icon: Icon(Icons.history)),
               ],
             ),
-            title: Text("Shopping list"),
+            title: Text(Strings.APP_NAME),
             backgroundColor: Color(0xffadebad),
           ),
           body: TabBarView(

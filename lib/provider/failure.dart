@@ -1,9 +1,8 @@
 class Failure {
-  // Use something like "int code;" if you want to translate error messages
-  final String message;
+  final String _message;
 
-  Failure(this.message);
+  Failure(this._message);
 
   @override
-  String toString() => message;
+  String toString() => _message;
 }

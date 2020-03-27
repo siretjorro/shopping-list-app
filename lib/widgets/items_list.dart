@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list_app/model/list_item.dart';
 import 'package:shopping_list_app/provider/api_provider.dart';
+import 'package:shopping_list_app/widgets/list_item_widget.dart';
 
 class ItemsList extends StatefulWidget {
   @override
@@ -29,20 +30,10 @@ class _ItemsListState extends State<ItemsList> {
                 padding: EdgeInsets.only(top: 20),
                 children: <Widget>[
                   for (final item in snapshot.data)
-                    CheckboxListTile(
-                      key: ValueKey(item),
-                      title: Text(item.description),
-                      value: item.completed,
-                      onChanged: (bool value) {
-                        ListItem updatedTodo = item;
-                        updatedTodo.completed = true;
-                        // _updateTodo(context, updatedTodo);
-                        // change status to done
-                      },
-                    ),
+                    ListItemWidget(listItem: item),
                 ],
               ),
-              onRefresh: () {},
+              onRefresh: _handleRefresh,
             ),
           );
         } else if (snapshot.hasError) {
@@ -57,5 +48,11 @@ class _ItemsListState extends State<ItemsList> {
         );
       },
     );
+  }
+
+  Future<void> _handleRefresh() async {
+    setState(() {
+      this._listItems = _apiProvider.getListItems();
+    });
   }
 }
