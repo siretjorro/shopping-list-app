@@ -7,5 +7,6 @@ const String APP_NAME = "Shopping list";
 const String NEW_ITEM = "New item";
 const String ADD = "Add";
 const String DELETE = "Delete";
+const String INFO = "Swipe down to refresh, swipe left to delete";
 
 const String DATA_ERROR = "Couldn't load data 😕";

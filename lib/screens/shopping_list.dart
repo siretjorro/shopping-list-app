@@ -43,8 +43,18 @@ class _ShoppingListState extends State<ShoppingList> {
           children: <Widget>[
             _buildNewListItemWidget(),
             _buildItemsListWidget(),
+            _buildInfoBar()
           ]),
     ));
+  }
+
+  _buildInfoBar() {
+    return Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+      PlatformText(Strings.INFO),
+    ]));
   }
 
   _buildItemsListWidget() {

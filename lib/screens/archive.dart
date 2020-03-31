@@ -22,14 +22,24 @@ class _ArchiveState extends State<Archive> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
+    return SafeArea(
+      child: Container(
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _buildItemsListWidget(),
+            _buildInfoBar()
           ]),
-    );
+    ));
+  }
+
+  _buildInfoBar() {
+    return Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+      PlatformText(Strings.INFO),
+    ]));
   }
 
   _buildItemsListWidget() {
