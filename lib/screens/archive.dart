@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_list_app/widgets/items_list_widget.dart';
 
 class Archive extends StatefulWidget {
   @override

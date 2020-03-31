@@ -1,16 +1,44 @@
-# shopping_list_app
+# Shopping list app
 
-A new Flutter project.
+A simple shopping list application. The goal of this application is to allow users to add shopping list items, mark them as completed and delete them. Users are also able to view completed items.
 
-## Getting Started
+## Installation and running
 
-This project is a starting point for a Flutter application.
+Clone this repository
 
-A few resources to get you started if this is your first Flutter project:
+```shell
+git clone https://github.com/siretjorro/shopping-list-app.git
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Navigate to the shopping_list_app directory
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```shell
+cd shopping_list_app
+```
+
+Ensure that you have a simulator or an emulator running and run the app
+
+```shell
+flutter run
+```
+## Running tests
+
+Run all tests
+
+```shell
+flutter test test
+```
+
+Run a specific test
+
+```shell
+flutter test test/[test name]
+```
+
+## Architecture
+
+The application has a very simple architecture based on FutureBuilders. I did try implementing the BLoC architecture pattern but ran into some trouble where the StreamBuilder wouldn't update the UI. The BLoC version is in the branch branchname.
+
+The web service used in this application was provided by my professor at TalTech [Andres Käver](https://github.com/akaver).
+
+The application currently has limited tests.

@@ -1,23 +1,29 @@
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:shopping_list_app/model/list_item.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
-import 'package:shopping_list_app/provider/failure.dart';
 import 'package:shopping_list_app/res/strings.dart' as Strings;
 
 class ApiProvider {
+  Client _client = Client();
+
+  set client(Client client) {
+    _client = client;
+  }
+
   Future<List<ListItem>> getListItems(bool completed) async {
     try {
       final response = _response(
-          await http.get(Strings.BASE_URL + "?apikey=" + Strings.API_KEY));
+          await _client.get(Strings.BASE_URL + "?apikey=" + Strings.API_KEY));
       var list = json.decode(response.body) as List;
       return list
           .map((i) => ListItem.fromJson(i))
           .where((f) => f.completed == completed)
           .toList();
     } on SocketException {
-      throw Failure("No Internet connection, couldn't load data 😕");
+      throw Exception("No Internet connection, couldn't load data 😕");
     }
   }
 
@@ -31,13 +37,9 @@ class ApiProvider {
               "/?apikey=" +
               Strings.API_KEY,
           headers: headers,
-          body: json.encode({
-            'id': listItem.id,
-            'description': listItem.description,
-            'completed': listItem.completed
-          })));
+          body: listItem.toJson()));
     } on SocketException {
-      throw Failure("No Internet connection, couldn't load data 😕");
+      throw Exception("No Internet connection, couldn't load data 😕");
     }
   }
 
@@ -49,10 +51,9 @@ class ApiProvider {
           Strings.BASE_URL + "?apikey=" + Strings.API_KEY,
           headers: headers,
           body: json.encode({'description': listItem.description})));
-      print("create list item");
       return ListItem.fromJson(json.decode(response.body));
     } on SocketException {
-      throw Failure("No Internet connection, couldn't load data 😕");
+      throw Exception("No Internet connection, couldn't load data 😕");
     }
   }
 
@@ -64,7 +65,7 @@ class ApiProvider {
           Strings.BASE_URL + id.toString() + "/?apikey=" + Strings.API_KEY,
           headers: headers));
     } on SocketException {
-      throw Failure("No Internet connection, couldn't load data 😕");
+      throw Exception("No Internet connection, couldn't load data 😕");
     }
   }
 
@@ -78,8 +79,7 @@ class ApiProvider {
         return response;
       // TODO: add more handling
       default:
-        print(response.statusCode);
-        throw Failure("Error loading data 😕");
+        throw Exception("Error loading data 😕");
     }
   }
 }
