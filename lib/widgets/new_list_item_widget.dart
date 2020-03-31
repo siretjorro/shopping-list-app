@@ -11,7 +11,6 @@ class _NewListItemWidgetState extends State<NewListItemWidget> {
   String _newListItem;
   final textControllerNewListItem = TextEditingController();
   final ListItemBloc _listItemBloc = ListItemBloc();
-  
 
   _NewListItemWidgetState() {
     textControllerNewListItem.addListener(_newListItemListener);
@@ -34,16 +33,20 @@ class _NewListItemWidgetState extends State<NewListItemWidget> {
           decoration: InputDecoration(labelText: 'New todo'),
         ),
       ),
-      RaisedButton(
-        child: Text('Add'),
-        onPressed: () {
-          _addNewListItem();
-        },
-      ),
+      SizedBox(
+        width: double.infinity,
+        child: RaisedButton(
+          child: Text('Add'),
+          onPressed: () {
+            _addNewListItem();
+          },
+        ),
+      )
     ]);
   }
 
   _addNewListItem() {
     _listItemBloc.addListItem(new ListItem(description: _newListItem));
+    textControllerNewListItem.text = "";
   }
 }

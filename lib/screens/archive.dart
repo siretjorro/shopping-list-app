@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:shopping_list_app/widgets/items_list_widget.dart';
-import 'package:shopping_list_app/widgets/new_list_item_widget.dart';
 
 class Archive extends StatefulWidget {
   @override
@@ -21,7 +19,7 @@ class _ArchiveState extends State<Archive> {
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            ItemsListWidget(),
+            ItemsListWidget(completed: true),
           ]),
     );
   }

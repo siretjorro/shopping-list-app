@@ -14,7 +14,6 @@ class ApiProvider {
       var list = json.decode(response.body) as List;
 
       if (completed != null) {
-        print("get list items");
         return list
             .map((i) => ListItem.fromJson(i))
             .where((f) => f.completed == completed)
@@ -22,34 +21,6 @@ class ApiProvider {
       } else {
         return list.map((i) => ListItem.fromJson(i)).toList();
       }
-    } on SocketException {
-      throw Failure("No Internet connection, couldn't load data 😕");
-    }
-  }
-
-  Future<List<ListItem>> getNotCompletedListItems() async {
-    try {
-      final response = _response(
-          await http.get(Strings.BASE_URL + "?apikey=" + Strings.API_KEY));
-      var list = json.decode(response.body) as List;
-      return list
-          .map((i) => ListItem.fromJson(i))
-          .where((f) => !f.completed)
-          .toList();
-    } on SocketException {
-      throw Failure("No Internet connection, couldn't load data 😕");
-    }
-  }
-
-  Future<List<ListItem>> getCompletedListItems() async {
-    try {
-      final response = _response(
-          await http.get(Strings.BASE_URL + "?apikey=" + Strings.API_KEY));
-      var list = json.decode(response.body) as List;
-      return list
-          .map((i) => ListItem.fromJson(i))
-          .where((f) => f.completed)
-          .toList();
     } on SocketException {
       throw Failure("No Internet connection, couldn't load data 😕");
     }
@@ -90,7 +61,19 @@ class ApiProvider {
     }
   }
 
-  Future deleteListItemById(int id) {}
+  Future<void> deleteListItemById(int id) async {
+Map<String, String> headers = {'Content-type': 'application/json'};
+
+    try {
+      return _response(await http.delete(
+          Strings.BASE_URL + id.toString() +
+              "/?apikey=" +
+              Strings.API_KEY,
+          headers: headers));
+    } on SocketException {
+      throw Failure("No Internet connection, couldn't load data 😕");
+    }
+  }
 
   dynamic _response(http.Response response) {
     switch (response.statusCode) {
