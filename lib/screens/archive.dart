@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_list_app/widgets/items_list_widget.dart';
 
 class Archive extends StatefulWidget {
   @override
@@ -13,13 +14,13 @@ class _ArchiveState extends State<Archive> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
+    return SafeArea(
+      child: Container(
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Text("archive"),
+            ItemsListWidget(completed: true),
           ]),
-    );
+    ));
   }
 }

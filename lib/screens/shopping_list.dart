@@ -4,10 +4,10 @@ import 'package:shopping_list_app/widgets/new_list_item_widget.dart';
 
 class ShoppingList extends StatefulWidget {
   @override
-  ShoppingListState createState() => ShoppingListState();
+  _ShoppingListState createState() => _ShoppingListState();
 }
 
-class ShoppingListState extends State<ShoppingList> {
+class _ShoppingListState extends State<ShoppingList> {
   @override
   void initState() {
     super.initState();
@@ -16,13 +16,12 @@ class ShoppingListState extends State<ShoppingList> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Container(
-      // padding: EdgeInsets.all(16),
+      child: Container(
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             NewListItemWidget(),
-            ItemsListWidget(),
+            ItemsListWidget(completed: false),
           ]),
     ));
   }

@@ -13,10 +13,4 @@ class ListItem {
         description: json['description'],
         completed: json['completed']);
   }
-
-  Map<String, dynamic> toJson() => {
-        "id": this.id,
-        "description": this.description,
-        "completed": this.completed
-      };
 }
