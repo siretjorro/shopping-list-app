@@ -78,7 +78,7 @@ class _ShoppingListState extends State<ShoppingList> {
               padding: EdgeInsets.only(top: 20),
               child: Column(children: <Widget>[
                 Center(
-                  child: Text(Strings.DATA_ERROR),
+                  child: PlatformText(snapshot.error.toString()),
                 )
               ]));
         }
