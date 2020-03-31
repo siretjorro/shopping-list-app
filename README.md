@@ -1,6 +1,6 @@
 # Shopping list app
 
-<img src="https://i.ibb.co/0VF5HGQ/Screenshot-2020-03-31-at-17-58-44.png" alt="Screenshot_ios" width="150"> <img src="https://i.ibb.co/KNxhhrK/android-shopping-list.png" alt="Screenshot_android" width="130">
+<img src="https://i.ibb.co/0VF5HGQ/Screenshot-2020-03-31-at-17-58-44.png" alt="Screenshot_ios" width="250"> <img src="https://i.ibb.co/KNxhhrK/android-shopping-list.png" alt="Screenshot_android" width="230">
 
 A simple shopping list application. The goal of this application is to allow users to add shopping list items, mark them as completed and delete them. Users are also able to view completed items.
 
