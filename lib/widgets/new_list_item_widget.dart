@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list_app/bloc/list_item_bloc.dart';
 import 'package:shopping_list_app/model/list_item.dart';
+import 'package:nice_button/nice_button.dart';
 
 class NewListItemWidget extends StatefulWidget {
   @override

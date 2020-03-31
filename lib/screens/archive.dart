@@ -19,7 +19,7 @@ class _ArchiveState extends State<Archive> {
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            ItemsListWidget(completed: true),
+            Text("archive"),
           ]),
     );
   }

@@ -7,20 +7,15 @@ import 'package:shopping_list_app/provider/failure.dart';
 import 'package:shopping_list_app/res/strings.dart' as Strings;
 
 class ApiProvider {
-  Future<List<ListItem>> getListItems({bool completed}) async {
+  Future<List<ListItem>> getListItems(bool completed) async {
     try {
       final response = _response(
           await http.get(Strings.BASE_URL + "?apikey=" + Strings.API_KEY));
       var list = json.decode(response.body) as List;
-
-      if (completed != null) {
-        return list
-            .map((i) => ListItem.fromJson(i))
-            .where((f) => f.completed == completed)
-            .toList();
-      } else {
-        return list.map((i) => ListItem.fromJson(i)).toList();
-      }
+      return list
+          .map((i) => ListItem.fromJson(i))
+          .where((f) => f.completed == completed)
+          .toList();
     } on SocketException {
       throw Failure("No Internet connection, couldn't load data 😕");
     }
@@ -62,13 +57,11 @@ class ApiProvider {
   }
 
   Future<void> deleteListItemById(int id) async {
-Map<String, String> headers = {'Content-type': 'application/json'};
+    Map<String, String> headers = {'Content-type': 'application/json'};
 
     try {
       return _response(await http.delete(
-          Strings.BASE_URL + id.toString() +
-              "/?apikey=" +
-              Strings.API_KEY,
+          Strings.BASE_URL + id.toString() + "/?apikey=" + Strings.API_KEY,
           headers: headers));
     } on SocketException {
       throw Failure("No Internet connection, couldn't load data 😕");

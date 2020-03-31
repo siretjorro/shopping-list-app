@@ -21,7 +21,7 @@ class ShoppingListState extends State<ShoppingList> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             NewListItemWidget(),
-            ItemsListWidget(completed: false),
+            ItemsListWidget(),
           ]),
     );
   }

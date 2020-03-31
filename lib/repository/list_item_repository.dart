@@ -4,7 +4,9 @@ import 'package:shopping_list_app/provider/api_provider.dart';
 class ListItemRepository {
   final _apiProvider = ApiProvider();
 
-  Future<List<ListItem>> getAllListItems({bool completed}) => _apiProvider.getListItems(completed: completed);
+  Future<List<ListItem>> getCompletedListItems() => _apiProvider.getListItems(true);
+
+  Future<List<ListItem>> getNotCompletedListItems() => _apiProvider.getListItems(false);
 
   Future<ListItem> createListItem(ListItem listItem) => _apiProvider.createListItem(listItem);
 

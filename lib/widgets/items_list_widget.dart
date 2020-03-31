@@ -4,8 +4,6 @@ import 'package:shopping_list_app/model/list_item.dart';
 import 'package:shopping_list_app/widgets/list_item_widget.dart';
 
 class ItemsListWidget extends StatefulWidget {
-  final bool completed;
-  const ItemsListWidget({Key key, this.completed}) : super(key: key);
   @override
   _ItemsListWidgetState createState() => _ItemsListWidgetState();
 }
@@ -25,7 +23,7 @@ class _ItemsListWidgetState extends State<ItemsListWidget> {
 
   Widget getListItemsWidget() {
     return StreamBuilder<List<ListItem>>(
-      stream: _listItemBloc.listItems,
+      stream: _listItemBloc.notCompletedListItems,
       builder: (BuildContext context, AsyncSnapshot<List<ListItem>> snapshot) {
         if (snapshot.hasData) {
           return Expanded(

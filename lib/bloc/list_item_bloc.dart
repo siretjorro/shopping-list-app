@@ -4,37 +4,49 @@ import 'package:shopping_list_app/repository/list_item_repository.dart';
 
 class ListItemBloc {
   final _listItemRepository = ListItemRepository();
-  final _listItemController = StreamController<List<ListItem>>.broadcast();
+  final _completedListItemController = StreamController<List<ListItem>>.broadcast();
+  final _notCompletedListItemController = StreamController<List<ListItem>>.broadcast();
 
-  get listItems => _listItemController.stream;
+
+  get completedListItems => _completedListItemController.stream;
+  get notCompletedListItems => _notCompletedListItemController.stream;
 
   ListItemBloc() {
-    getListItems();
+    getCompletedListItems();
+    getNotCompletedListItems();
   }
 
-  getListItems({bool completed}) async {
+  getCompletedListItems({bool completed}) async {
     //sink is a way of adding data reactively to the stream
     //by registering a new event
-    print("bloc method");
-    _listItemController.sink.add(await _listItemRepository.getAllListItems(completed: completed));
+    _completedListItemController.sink.add(await _listItemRepository.getCompletedListItems());
+  }
+
+  getNotCompletedListItems({bool completed}) async {
+    //sink is a way of adding data reactively to the stream
+    //by registering a new event
+    _notCompletedListItemController.sink.add(await _listItemRepository.getNotCompletedListItems());
   }
 
   addListItem(ListItem listItem) async {
     await _listItemRepository.createListItem(listItem);
-    getListItems();
+    getNotCompletedListItems();
   }
 
   updateListItem(ListItem listItem) async {
     await _listItemRepository.updateListItem(listItem);
-    getListItems();
+    getCompletedListItems();
+    getNotCompletedListItems();
   }
 
   deleteListItemById(int id) async {
     await _listItemRepository.deleteListItemById(id);
-    getListItems();
+    getCompletedListItems();
+    getNotCompletedListItems();
   }
 
   dispose() {
-    _listItemController.close();
+    _completedListItemController.close();
+    _notCompletedListItemController.close();
   }
 }
