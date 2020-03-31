@@ -7,23 +7,59 @@ import 'package:shopping_list_app/provider/failure.dart';
 import 'package:shopping_list_app/res/strings.dart' as Strings;
 
 class ApiProvider {
-  Future<List<ListItem>> getListItems() async {
+  Future<List<ListItem>> getListItems({bool completed}) async {
     try {
       final response = _response(
           await http.get(Strings.BASE_URL + "?apikey=" + Strings.API_KEY));
       var list = json.decode(response.body) as List;
-      List<ListItem> listItems = list.map((i) => ListItem.fromJson(i)).where((f) => !f.completed).toList();
-      return listItems;
+
+      if (completed != null) {
+        print("get list items");
+        return list
+            .map((i) => ListItem.fromJson(i))
+            .where((f) => f.completed == completed)
+            .toList();
+      } else {
+        return list.map((i) => ListItem.fromJson(i)).toList();
+      }
     } on SocketException {
       throw Failure("No Internet connection, couldn't load data 😕");
     }
   }
 
-  void updateListItem(ListItem listItem) async {
+  Future<List<ListItem>> getNotCompletedListItems() async {
+    try {
+      final response = _response(
+          await http.get(Strings.BASE_URL + "?apikey=" + Strings.API_KEY));
+      var list = json.decode(response.body) as List;
+      return list
+          .map((i) => ListItem.fromJson(i))
+          .where((f) => !f.completed)
+          .toList();
+    } on SocketException {
+      throw Failure("No Internet connection, couldn't load data 😕");
+    }
+  }
+
+  Future<List<ListItem>> getCompletedListItems() async {
+    try {
+      final response = _response(
+          await http.get(Strings.BASE_URL + "?apikey=" + Strings.API_KEY));
+      var list = json.decode(response.body) as List;
+      return list
+          .map((i) => ListItem.fromJson(i))
+          .where((f) => f.completed)
+          .toList();
+    } on SocketException {
+      throw Failure("No Internet connection, couldn't load data 😕");
+    }
+  }
+
+  Future<void> updateListItem(ListItem listItem) async {
     Map<String, String> headers = {'Content-type': 'application/json'};
 
     try {
-      await http.put(
+      return _response(await http.put(
           Strings.BASE_URL +
               listItem.id.toString() +
               "/?apikey=" +
@@ -33,18 +69,40 @@ class ApiProvider {
             'id': listItem.id,
             'description': listItem.description,
             'completed': listItem.completed
-          }));
+          })));
     } on SocketException {
       throw Failure("No Internet connection, couldn't load data 😕");
     }
   }
 
+  Future<ListItem> createListItem(ListItem listItem) async {
+    Map<String, String> headers = {'Content-type': 'application/json'};
+
+    try {
+      final response = _response(await http.post(
+          Strings.BASE_URL + "?apikey=" + Strings.API_KEY,
+          headers: headers,
+          body: json.encode({'description': listItem.description})));
+      print("create list item");
+      return ListItem.fromJson(json.decode(response.body));
+    } on SocketException {
+      throw Failure("No Internet connection, couldn't load data 😕");
+    }
+  }
+
+  Future deleteListItemById(int id) {}
+
   dynamic _response(http.Response response) {
     switch (response.statusCode) {
       case 200:
         return response;
+      case 201:
+        return response;
+      case 204:
+        return response;
       // TODO: add more handling
       default:
+        print(response.statusCode);
         throw Failure("Error loading data 😕");
     }
   }

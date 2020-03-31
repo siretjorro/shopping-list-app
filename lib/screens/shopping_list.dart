@@ -20,6 +20,7 @@ class ShoppingListState extends State<ShoppingList> {
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            NewListItemWidget(),
             ItemsListWidget(),
           ]),
     );

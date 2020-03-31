@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_list_app/bloc/list_item_bloc.dart';
 import 'package:shopping_list_app/model/list_item.dart';
-import 'package:shopping_list_app/provider/api_provider.dart';
 import 'package:shopping_list_app/widgets/list_item_widget.dart';
 
 class ItemsListWidget extends StatefulWidget {
@@ -9,54 +9,83 @@ class ItemsListWidget extends StatefulWidget {
 }
 
 class _ItemsListWidgetState extends State<ItemsListWidget> {
-  Future<List<ListItem>> _listItems;
-  ApiProvider _apiProvider = ApiProvider();
+  final ListItemBloc _listItemBloc = ListItemBloc();
 
   @override
   void initState() {
     super.initState();
-    this._listItems = _getListItems();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<ListItem>>(
-      future: _listItems,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return Expanded(
-            child: RefreshIndicator(
-              child: ListView(
-                padding: EdgeInsets.only(top: 20),
-                children: <Widget>[
-                  for (final item in snapshot.data)
-                    ListItemWidget(listItem: item),
-                ],
-              ),
-              onRefresh: _handleRefresh,
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return Text(snapshot.error.toString());
-        }
-        return Column(
-          children: <Widget>[
-            Center(
-              child: CircularProgressIndicator(),
-            ),
-          ],
-        );
+    return getListItemsWidget();
+  }
+
+  Future<void> _handleRefresh() async {}
+
+  Widget getListItemsWidget() {
+    return StreamBuilder<List<ListItem>>(
+      stream: _listItemBloc.listItems,
+      builder: (BuildContext context, AsyncSnapshot<List<ListItem>> snapshot) {
+         if (snapshot.hasData) {
+      for (final item in snapshot.data) {
+        print(item.description);
+      }
+      // return Expanded(
+      //   child: RefreshIndicator(
+      //     child:
+      return Expanded(child:ListView.builder(
+        scrollDirection: Axis.vertical,
+    shrinkWrap: true,
+              itemCount: snapshot.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                ListItem listItem = snapshot.data[index];
+                return new ListItemWidget(listItem: listItem);
+              }));
+    } else if (snapshot.hasError) {
+      return Text(snapshot.error.toString());
+    }
+    return Column(
+      children: <Widget>[
+        Center(
+          child: CircularProgressIndicator(),
+        ),
+      ],
+    );
       },
     );
   }
 
-  Future<void> _handleRefresh() async {
-    setState(() {
-      this._listItems = _getListItems();
-    });
+  Widget getListItemWidget(AsyncSnapshot<List<ListItem>> snapshot) {
+    if (snapshot.hasData) {
+      for (final item in snapshot.data) {
+        print(item.description);
+      }
+      return Expanded(
+        child: RefreshIndicator(
+          child: ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (BuildContext context, int index) {
+                ListItem listItem = snapshot.data[index];
+                return new ListItemWidget(listItem: listItem);
+              }),
+          onRefresh: _handleRefresh,
+        ),
+      );
+    } else if (snapshot.hasError) {
+      return Text(snapshot.error.toString());
+    }
+    return Column(
+      children: <Widget>[
+        Center(
+          child: CircularProgressIndicator(),
+        ),
+      ],
+    );
   }
 
-  Future<List<ListItem>> _getListItems() {
-    return _apiProvider.getListItems();
+  dispose() {
+    _listItemBloc.dispose();
+    // super.dispose();
   }
 }

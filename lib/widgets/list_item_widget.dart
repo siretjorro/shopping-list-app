@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_list_app/bloc/list_item_bloc.dart';
 import 'package:shopping_list_app/model/list_item.dart';
 import 'package:shopping_list_app/provider/api_provider.dart';
 
@@ -11,6 +12,7 @@ class ListItemWidget extends StatefulWidget {
 
 class _ListItemWidgetState extends State<ListItemWidget> {
   final ApiProvider _apiProvider = ApiProvider();
+  final ListItemBloc _listItemBloc = ListItemBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +29,9 @@ class _ListItemWidgetState extends State<ListItemWidget> {
     ListItem completedItem = widget.listItem;
     completedItem.completed = !completedItem.completed;
     _completeListItem(completedItem);
-    setState(() {});
   }
 
   void _completeListItem(ListItem listItem) {
-    _apiProvider.updateListItem(listItem);
+    _listItemBloc.updateListItem(listItem);
   }
 }
