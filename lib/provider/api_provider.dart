@@ -37,7 +37,11 @@ class ApiProvider {
               "/?apikey=" +
               Strings.API_KEY,
           headers: headers,
-          body: listItem.toJson()));
+          body: json.encode({
+            'id': listItem.id,
+            'description': listItem.description,
+            'completed': listItem.completed
+          })));
     } on SocketException {
       throw Exception("No Internet connection, couldn't load data 😕");
     }

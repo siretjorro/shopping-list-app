@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         primaryColor: Color(0xffb3d9ff),
         accentColor: Colors.blueAccent,
-
         textTheme: GoogleFonts.openSansTextTheme(
           Theme.of(context).textTheme,
         ),

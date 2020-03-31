@@ -1,5 +1,7 @@
 # Shopping list app
 
+<img src="https://i.ibb.co/0VF5HGQ/Screenshot-2020-03-31-at-17-58-44.png" alt="Screenshot_ios" width="150"> <img src="https://i.ibb.co/KNxhhrK/android-shopping-list.png" alt="Screenshot_android" width="130">
+
 A simple shopping list application. The goal of this application is to allow users to add shopping list items, mark them as completed and delete them. Users are also able to view completed items.
 
 ## Installation and running
@@ -37,7 +39,7 @@ flutter test test/[test name]
 
 ## Architecture
 
-The application has a very simple architecture based on FutureBuilders. I did try implementing the BLoC architecture pattern but ran into some trouble where the StreamBuilder wouldn't update the UI. The BLoC version is in the branch branchname.
+The application has a very simple architecture based on FutureBuilders. I did try implementing the BLoC architecture pattern but ran into some trouble where the StreamBuilder wouldn't update the UI. The BLoC version is in the branch [bloc](https://github.com/siretjorro/shopping-list-app/tree/bloc).
 
 The web service used in this application was provided by my professor at TalTech [Andres Käver](https://github.com/akaver).
 
