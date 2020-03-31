@@ -39,8 +39,8 @@ flutter test test/[test name]
 
 ## Architecture
 
-The application has a very simple architecture based on FutureBuilders. I did try implementing the BLoC architecture pattern but ran into some trouble where the StreamBuilder wouldn't update the UI. The BLoC version is in the branch [bloc](https://github.com/siretjorro/shopping-list-app/tree/bloc).
+The application has a very simple architecture based on FutureBuilders. I did try implementing the BLoC architecture pattern to avoid code repetition but ran into some trouble where the StreamBuilder wouldn't update the UI. The BLoC version is in the branch [bloc](https://github.com/siretjorro/shopping-list-app/tree/bloc), I would be happy if you could take a look at that as well and let me know what I did wrong.
 
-The web service used in this application was provided by my professor at TalTech [Andres Käver](https://github.com/akaver).
+The web service used in this application was provided by my professor at TalTech [Andres Käver](https://github.com/akaver) and can be found [here](https://git.akaver.com/taltech-public/com.akaver.taltech).
 
 The application currently has limited tests.
