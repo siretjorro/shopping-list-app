@@ -12,9 +12,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: Strings.APP_NAME,
       theme: ThemeData(
-        // Define the default brightness and colors.
         brightness: Brightness.light,
-        primaryColor: Colors.lightBlue[500],
+        primaryColor: Color(0xffb3d9ff),
         accentColor: Colors.blueAccent,
 
         textTheme: GoogleFonts.openSansTextTheme(
@@ -26,14 +25,12 @@ class MyApp extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             bottom: TabBar(
-              // indicatorColor: Color(0xff1f7a1f),
               tabs: [
                 Tab(icon: Icon(Icons.list)),
                 Tab(icon: Icon(Icons.history)),
               ],
             ),
             title: Text(Strings.APP_NAME),
-            // backgroundColor: Color(0xffadebad),
           ),
           body: TabBarView(
             children: [

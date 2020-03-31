@@ -15,14 +15,15 @@ class ShoppingListState extends State<ShoppingList> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
+    return SafeArea(
+        child: Container(
+      // padding: EdgeInsets.all(16),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             NewListItemWidget(),
             ItemsListWidget(),
           ]),
-    );
+    ));
   }
 }

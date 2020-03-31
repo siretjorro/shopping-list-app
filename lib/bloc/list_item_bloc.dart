@@ -16,13 +16,13 @@ class ListItemBloc {
     getNotCompletedListItems();
   }
 
-  getCompletedListItems({bool completed}) async {
+  getCompletedListItems() async {
     //sink is a way of adding data reactively to the stream
     //by registering a new event
     _completedListItemController.sink.add(await _listItemRepository.getCompletedListItems());
   }
 
-  getNotCompletedListItems({bool completed}) async {
+  getNotCompletedListItems() async {
     //sink is a way of adding data reactively to the stream
     //by registering a new event
     _notCompletedListItemController.sink.add(await _listItemRepository.getNotCompletedListItems());

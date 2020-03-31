@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list_app/bloc/list_item_bloc.dart';
 import 'package:shopping_list_app/model/list_item.dart';
-import 'package:nice_button/nice_button.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:shopping_list_app/res/strings.dart' as Strings;
 
 class NewListItemWidget extends StatefulWidget {
   @override
@@ -27,23 +28,28 @@ class _NewListItemWidgetState extends State<NewListItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Container(
-        child: TextField(
-          controller: textControllerNewListItem,
-          decoration: InputDecoration(labelText: 'New todo'),
-        ),
-      ),
-      SizedBox(
-        width: double.infinity,
-        child: RaisedButton(
-          child: Text('Add'),
-          onPressed: () {
-            _addNewListItem();
-          },
-        ),
-      )
-    ]);
+    return Container(
+        padding: EdgeInsets.all(16),
+        color: Color(0xffe6f2ff),
+        child: Column(children: <Widget>[
+          Container(
+            child: PlatformTextField(
+              controller: textControllerNewListItem,
+              android: (_) => MaterialTextFieldData(
+                decoration: InputDecoration(labelText: Strings.NEW_ITEM),
+              ),
+              ios: (_) => CupertinoTextFieldData(
+                placeholder: Strings.NEW_ITEM,
+              ),
+            ),
+          ),
+          PlatformButton(
+            child: PlatformText(Strings.ADD),
+            onPressed: () {
+              _addNewListItem();
+            },
+          ),
+        ]));
   }
 
   _addNewListItem() {
